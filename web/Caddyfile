@@ -1,0 +1,18 @@
+{
+    # Optional: set your email for Let's Encrypt notifications
+    # email you@example.com
+}
+
+# HTTP site. Replace ":80" with your domain (e.g., example.com) to enable HTTPS automatically
+:80 {
+    encode zstd gzip
+
+    # Cache Next.js build assets aggressively
+    @nextStatic path /_next/static/*
+    header @nextStatic Cache-Control "public, max-age=31536000, immutable"
+
+    # Proxy all requests to the Next.js server
+    reverse_proxy 127.0.0.1:3000
+}
+
+
